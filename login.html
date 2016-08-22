@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+    </head>
+    <body ng-app="app" >
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-route.js"></script>
+
+        <script>
+            angular.module('app', []).controller('DataServiceController', DataServiceController);
+            function DataServiceController($scope, $http, $location)
+            {
+                $scope.name = "anton";
+                $scope.validateUser = function()
+                {
+                    $http.get("http://192.168.10.101:8080/WebBasedRunbook/services/validation/"+ $scope.txtSID + "/" + $scope.txtPassword).then(
+                        function(response)
+                        {
+                            $scope.data = response.data;
+                            //$location.path('http://www.google.com');
+                        }
+
+                    );
+                }
+                $scope.getUserInfo = function()
+                {
+                    $http.get("http://192.168.10.101:8080/WebBasedRunbook/services/validation/"+ $scope.txtSID).then(
+                        function(response)
+                        {
+                            $scope.user = response.data;
+                            //$location.path('http://www.google.com');
+                        }
+
+                    );
+                }
+            }
+        </script>
+
+
+        <div ng-controller="DataServiceController">
+            <form>
+                <table>
+                    <tr>
+                        <td>SID</td>
+                        <td><input type="text" ng-model="txtSID"/>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type="text" ng-model="txtPassword"/>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button ng-click="validateUser()">Login</button>
+                    </tr>
+                </table>
+            </form>
+            Username: {{txtSID}}<br>
+            Password: {{txtPassword}}<br>
+            Response: {{ data }}<br>
+            <br><hr>
+
+            <button ng-click="getUserInfo()">Get user information</button>
+            <div ng-show="user">
+                First Name: {{user.firstName }}<br>
+                Last Name: {{user.lastName}}<br>
+                Email: {{user.email}}<br>
+            </div>
+
+        
+        </div>
+
+    </body>
+</html>
