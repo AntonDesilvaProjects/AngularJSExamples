@@ -14,7 +14,7 @@
                 $scope.name = "anton";
                 $scope.validateUser = function()
                 {
-                    $http.get("http://192.168.10.101:8080/WebBasedRunbook/services/validation/"+ $scope.txtSID + "/" + $scope.txtPassword).then(
+                    $http.get("http://localhost:8080/WebBasedRunbook/services/validation/"+ $scope.txtSID + "/" + $scope.txtPassword).then(
                         function(response)
                         {
                             $scope.data = response.data;
@@ -25,7 +25,7 @@
                 }
                 $scope.getUserInfo = function()
                 {
-                    $http.get("http://192.168.10.101:8080/WebBasedRunbook/services/validation/"+ $scope.txtSID).then(
+                    $http.get("http://localhost:8080/WebBasedRunbook/services/validation/"+ $scope.txtSID).then(
                         function(response)
                         {
                             $scope.user = response.data;
